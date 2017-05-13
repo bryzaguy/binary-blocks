@@ -1,0 +1,11 @@
+$block-size: 12.5%;
+
+.container {
+  font-family: 'monospace';
+  display: inline-flex;
+  justify-content: space-around;
+  vertical-align: middle;
+  width: $block-size;
+  height: $block-size;
+  border: 1px solid black;
+}
