@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import {GameContainer} from './src/GameContainer.jsx'
 
 class App extends Component {
   render() {
-    return <h1>Binary Blocks!</h1>
+    const style = {display: 'flex', justifyContent: 'space-around'}
+    return <div style={style}><GameContainer /></div>
   }
 }
 
