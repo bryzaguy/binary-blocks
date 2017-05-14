@@ -1,11 +1,17 @@
-$block-size: 12.5%;
-
 .container {
-  font-family: 'monospace';
-  display: inline-flex;
-  justify-content: space-around;
-  vertical-align: middle;
-  width: $block-size;
-  height: $block-size;
-  border: 1px solid black;
+  display: flex;
+  flex-grow: 1;
+  font-size: 2rem;
+  font-family: monospace;
+  border: 1px solid gray;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  color: white;
+
+  &:after {
+    content: ' ';
+    display: block;
+    padding-bottom: 100%;
+  }
 }
