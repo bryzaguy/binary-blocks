@@ -5,7 +5,7 @@ class ProgressBar extends Component {
   
   static propTypes = {
     duration : PropTypes.number.isRequired
-  };
+  }
 
   render() {
     return (
