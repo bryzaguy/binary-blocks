@@ -9,7 +9,7 @@ module.exports = {
       test: /\.s?css/,
       loaders: [
         'style-loader',
-        'css-loader?modules',
+        'css-loader?modules&localIdentName=[name]-[local]',
         'postcss-loader?autoprefixer',
         'sass-loader'
       ] 
