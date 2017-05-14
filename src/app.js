@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import {GameContainer} from './src/GameContainer.jsx'
+import {GameContainer} from './GameContainer.jsx'
+import style from './app.scss'
 
 class App extends Component {
   render() {
-    const style = {display: 'flex', justifyContent: 'space-around'}
-    return <div style={style}><GameContainer /></div>
+    return (
+      <div className={style.app}>
+        <GameContainer />
+      </div>
+    )
   }
 }
 
