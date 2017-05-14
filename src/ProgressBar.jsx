@@ -5,11 +5,11 @@ class ProgressBar extends Component {
   
   static propTypes = {
     duration : PropTypes.number.isRequired
-  };
+  }
 
   render() {
     return (
-      <div className={style.progress-bar}>
+      <div className={style['progress-bar']}>
       </div>
     )
   }
