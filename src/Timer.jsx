@@ -12,7 +12,7 @@ export class Timer extends Component {
   }
 
   static defaultProps = {
-    length: 5
+    length: 15
   }
 
   state = {

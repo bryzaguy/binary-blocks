@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {ZeroBlock, OneBlock} from './Block.jsx'
 import style from './BlockRow.scss'
+import classNames from 'classnames'
 
 const BIN_LENGTH = 8;
 
@@ -12,7 +13,8 @@ export class BlockRow extends Component {
   }
 
   static propTypes = {
-    number : PropTypes.number.isRequired
+    isPlayerNumber : PropTypes.bool,
+    number         : PropTypes.number.isRequired
   }
 
   convertToBinaryArr() {
@@ -25,8 +27,12 @@ export class BlockRow extends Component {
 
   render () {
     const binArr = this.convertToBinaryArr()
+    // Added conditional class for player number to differentiate it
+    const classObj = {}
+    classObj[style["player-number"]] = this.props.isPlayerNumber
+    const classes = classNames(style.container,classObj)
     return (
-      <div className={style.container}>
+      <div className={classes}>
         {binArr.map((bit, index) =>
           +bit ? <OneBlock key={index} /> : <ZeroBlock key={index} />
         )}
