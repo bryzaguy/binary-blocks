@@ -12,7 +12,7 @@ export class Timer extends Component {
   }
 
   static defaultProps = {
-    length: 5
+    length: 15
   }
 
   state = {
@@ -25,6 +25,10 @@ export class Timer extends Component {
 
   componentWillUnmount () {
     clearInterval(this.interval)
+  }
+
+  reset = () => {
+    this.setState({progress: 0})
   }
 
   tick = () => {
