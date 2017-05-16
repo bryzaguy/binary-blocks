@@ -11,11 +11,45 @@ const handleRightShift = playerNumber => (playerNumber >> 1) & 255
 const handleXor = (playerNumber, opNumber) => (playerNumber ^ opNumber) & 255
 
 export class OperationButtons extends Component {
-
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
   };
+
+  componentDidMount () {
+    window.addEventListener('keydown', this.handleKeyDown, false)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('keydown', this.handleKeyDown)
+  }
+
+  handleKeyDown = (e) => {
+    const {onChange, onSubmit} = this.props
+    switch (e.key) {
+      case 'Enter':
+        onSubmit()
+        break
+      case 'ArrowRight':
+        onChange(handleRightShift)
+        break
+      case 'ArrowLeft':
+        onChange(handleLeftShift)
+        break
+      case 'ArrowUp':
+        onChange(handleNot)
+        break
+      case 'a':
+        onChange(handleAnd)
+        break
+      case 's':
+        onChange(handleOr)
+        break
+      case 'd':
+        onChange(handleXor)
+        break
+    }
+  }
 
   render() {
     const {onChange, onSubmit} = this.props

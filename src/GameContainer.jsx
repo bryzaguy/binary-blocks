@@ -5,7 +5,7 @@ import {Timer} from './Timer.jsx'
 import {OperationButtons} from './OperationButtons.jsx'
 import style from './GameContainer.scss'
 
-const getNumber = () => Math.ceil(Math.random() * 256)
+const getNumber = () => Math.ceil(Math.random() * 255)
 
 export class GameContainer extends Component {
   state = {
