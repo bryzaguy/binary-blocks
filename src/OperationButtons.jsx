@@ -1,46 +1,33 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import style from './OperationButtons.scss'
 
-import {ZeroButton} from './ZeroButton.jsx'
-import {OneButton} from './OneButton.jsx'
-import {ANDButton} from './ANDButton.jsx'
-import {ORButton} from './ORButton.jsx'
-import {XORButton} from './XORButton.jsx'
-import {NOTButton} from './NOTButton.jsx'
-import {LeftShiftButton} from './LeftShiftButton.jsx'
-import {RightShiftButton} from './RightShiftButton.jsx'
+import {Button} from './Button.jsx'
+
+const handleAnd = (playerNumber, opNumber) => (playerNumber & opNumber) & 255
+const handleNot = playerNumber => ~playerNumber & 255
+const handleOr = (playerNumber, opNumber) => (playerNumber | opNumber) & 255
+const handleLeftShift = playerNumber => (playerNumber << 1) & 255
+const handleRightShift = playerNumber => (playerNumber >> 1) & 255
+const handleXor = (playerNumber, opNumber) => (playerNumber ^ opNumber) & 255
 
 export class OperationButtons extends Component {
 
   static propTypes = {
-    onChange         : PropTypes.func.isRequired,
-    onChangeOpNumber : PropTypes.func.isRequired
-  }
-
-  handleClick = operation => {
-    this.props.onChange(operation)
-  }
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
+  };
 
   render() {
-    return(
-      <div className={style['operation-buttons']}>
-        <ZeroButton
-        onClick={this.props.onChangeOpNumber} />
-        <OneButton
-        onClick={this.props.onChangeOpNumber} />
-        <ANDButton
-        onClick={this.handleClick} />
-        <ORButton
-        onClick={this.handleClick} />
-        <XORButton
-        onClick={this.handleClick} />
-        <NOTButton
-        onClick={this.handleClick} />
-        <LeftShiftButton
-        onClick={this.handleClick} />
-        <RightShiftButton
-        onClick={this.handleClick} />
+    const {onChange, onSubmit} = this.props
+    return (
+      <div>
+        <Button onClick={() => onChange(handleNot)}>~</Button>
+        <Button onClick={() => onChange(handleAnd)}>&amp;</Button>
+        <Button onClick={() => onChange(handleOr)}>|</Button>
+        <Button onClick={() => onChange(handleXor)}>^</Button>
+        <Button onClick={() => onChange(handleLeftShift)}>&lt;&lt;</Button>
+        <Button onClick={() => onChange(handleRightShift)}>&gt;&gt;</Button>
+        <Button onClick={onSubmit}>Submit</Button>
       </div>
     )
   }

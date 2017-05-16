@@ -27,6 +27,10 @@ export class Timer extends Component {
     clearInterval(this.interval)
   }
 
+  reset = () => {
+    this.setState({progress: 0})
+  }
+
   tick = () => {
     const {onComplete, length} = this.props
     const {progress: prevProgress} = this.state

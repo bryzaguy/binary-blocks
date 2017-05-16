@@ -14,23 +14,17 @@ export class GameContainer extends Component {
     opNumber: null
   }
 
-  handleTimerComplete = () => {
-    const {enemyNumbers: previous, playerNumber} = this.state
-    if (previous.length === 10) {
+  roundComplete = () => {
+    const {enemyNumbers: currentNumbers, playerNumber} = this.state
+    
+    const hasMatch = playerNumber === currentNumbers[0]
+    const enemyNumbers = hasMatch ?
+      currentNumbers.slice(1) :
+      [getNumber()].concat(currentNumbers)
+    
+    if (enemyNumbers.length > 10) {
       this.setState({gameOver: true})
-    } else if(playerNumber === previous[0]) {
-      // If they match, remove the first element
-      // If there is only one element, get a new number
-      let enemyNumbers;
-      previous.splice(0, 1)
-      if(previous.length === 1) {
-        enemyNumbers = [getNumber()]
-      } else {
-        enemyNumbers = previous
-      }
-      this.setState({enemyNumbers})
     } else {
-      const enemyNumbers = [getNumber()].concat(previous)
       this.setState({enemyNumbers})
     }
   }
@@ -42,14 +36,22 @@ export class GameContainer extends Component {
     })
   }
 
+  handleSubmit = () => {
+    this.timer.reset()
+    this.roundComplete()
+  }
+
   // Takes a function sent by operation button and operates on playerNumber
   handleNumberChange = operation => {
-    const {enemyNumbers, opNumber, playerNumber} = this.state;
-    const newNumber = operation(playerNumber, opNumber)
+    const {playerNumber} = this.state;
+
     this.setState ({
-      playerNumber: newNumber,
-      enemyNumbers
+      playerNumber: operation(playerNumber, 1)
     })
+  }
+
+  timerRef = elem => {
+    this.timer = elem
   }
 
   render () {
@@ -57,18 +59,19 @@ export class GameContainer extends Component {
     const top = gameOver ? (
       <div className={style.over}>GAME OVER</div>
     ) : (
-      <Timer onComplete={this.handleTimerComplete} />
+      <Timer onComplete={this.roundComplete} ref={this.timerRef} />
     )
+    
     return (
       <div className={style.container}>
         {top}
-        <BlockRow
-        isPlayerNumber={true}
-        number={playerNumber} />
-        {enemyNumbers.map((n, i) => <BlockRow key={i} number={n} />)}
-        <OperationButtons
-        onChange={this.handleNumberChange}
-        onChangeOpNumber={this.setOpNumber} />
+        <BlockRow isPlayerNumber number={playerNumber} />
+        {enemyNumbers.map((n, i) => (
+          <BlockRow key={i} number={n} />
+        ))}
+        <OperationButtons 
+          onChange={this.handleNumberChange} 
+          onSubmit={this.handleSubmit} />
       </div>
     )
   }
